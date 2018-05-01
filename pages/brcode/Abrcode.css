@@ -1,5 +1,9 @@
+*{
+	padding:0;
+	margin:0;
+}
 body,html{
-	height:100%;
+	height:100vh;
 }
 .mui-bar-nav{
 	box-shadow: none;
@@ -16,6 +20,10 @@ body,html{
 	flex-direction: row;
 	align-items: center;
 }
+.mui-bar .mui-icon{
+	padding:0;
+	margin:0;
+}
 .mui-bar .mui-title{
 	height:100%;
 	color:#FFFFFF;
@@ -31,6 +39,7 @@ body,html{
    position: relative;
    top:7vh;
    left:0px;
+   background: #000000;
 }
 .ewmbtn{
 	position:fixed;

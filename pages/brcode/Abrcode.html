@@ -2,10 +2,16 @@
 <html>
 	<head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<title></title>
 	<style type="text/css">
 		*{
 			-webkit-user-select: none;
+		}
+		html,body{
+			margin: 0px;
+			padding: 0px;
+			height: 100%;
 		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
@@ -41,7 +47,18 @@
 	<script type="text/javascript">
 		mui.plusReady(function(){
 			mui.init();
-			startRecognize();
+			var isImmersedStatusbar = plus.navigator.isImmersedStatusbar();
+			console.log(isImmersedStatusbar);
+			//获取系统状态栏高度
+			var StatusbarHeight = plus.navigator.getStatusbarHeight();
+			console.log(StatusbarHeight);
+			var headerH = $('.mui-bar-nav').eq(0).height();
+			console.log(headerH);
+			$('.mui-bar a').css({height: (headerH + StatusbarHeight)+'px', 'paddingTop':StatusbarHeight+'px'});
+			$('.mui-title').css({height: (headerH + StatusbarHeight)+'px', 'paddingTop':StatusbarHeight+'px'});
+			mui.later(function(){
+				startRecognize();
+			},500);
 		});
 
 		var scan = null;

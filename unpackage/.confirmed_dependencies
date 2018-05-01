@@ -1,0 +1,10 @@
+{
+	"index.html": {
+		"refer": [
+			"pages/home/home.html",
+			"pages/brcode/Abrcode.html",
+			"pages/brcode/brcode.html",
+			"pages/setting/setting.html"
+		]
+	}
+}
