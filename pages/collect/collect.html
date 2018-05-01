@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="collect.css"/>
+	</head>
+
+	<body>
+		<div class="mui-content">
+		    <div class="collect" id="lists">
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script src="../../js/util.js"></script>
+		<script src="../../js/Sortable.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var lists = [
+			];
+			//根据数据生成所有div
+			for (var i = 0; i < lists.length; i++) {
+				$('#lists').append('<div class="collect-item" data-id='+i+'>'+
+					'<div class="collect-ori">'+
+			    			'<div class="collect-img" data-status="close">'+
+			    				'<div class="collect-gimg"></div>'+
+			    				'<div class="collect-gbox"></div>'+
+			    			'</div>'+
+			    			'<div class="collect-word">'+lists[i].title+'</div>'+
+			    		'</div>'+
+		    		'</div>');
+			}
+
+			var el = document.getElementById('lists');
+			// List with handle
+			Sortable.create(el, {
+			  animation: 150,
+			  draggable:'.collect-item'
+			});
+		</script>
+	</body>
+
+</html>

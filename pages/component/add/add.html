@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="add.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-btn"><div class="backbtn-word">返回</div></a>
+		    <h1 class="mui-title">新闻</h1>
+		    <!--<div class="zdy-word" onclick="toZdy()">自定义</div>-->
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+			    		<div class="command">
+						<div class="command-content">
+							<ul class="command-ul">
+								<!--<li class="command-itemspe">
+									<div class="command-itemspe-content">
+										<div class="command-itemspe-img"></div>
+										<div class="command-itemspe-info">
+											<div class="info-title">哔哩哔哩</div>
+											<div class="info-desc">银河系知名弹幕追番神器</div>
+										</div>
+									</div>
+									<div class="command-itemspe-btn">添加</div>
+								</li>
+								<li class="command-itemspe">
+									<div class="command-itemspe-content">
+										<div class="command-itemspe-img"></div>
+										<div class="command-itemspe-info">
+											<div class="info-title">哔哩哔哩</div>
+											<div class="info-desc">银河系知名弹幕追番神器</div>
+										</div>
+									</div>
+									<div class="command-itemspe-btn">添加</div>
+								</li>-->
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: true, //是否显示滚动条
+				deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			});
+			function toZdy(){
+				mui.openWindow({
+				    url:'../zdy/zdy.html',
+				    id:'zdy',
+				    styles:{
+				      top:0,//新页面顶部位置
+				      bottom:0,//新页面底部位置
+				    },
+				    extras:{
+				      
+				    },
+				    createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				    show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				    },
+				    waiting:{
+				      autoShow:true,//自动显示等待框，默认为true
+				      title:'正在加载...',//等待对话框上显示的提示内容
+				      options:{
+				      }
+				    }
+				})
+			}
+		</script>
+	</body>
+
+</html>

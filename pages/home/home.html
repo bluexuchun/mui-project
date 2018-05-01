@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/swiper/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="home.css"/>
+		<script src="../../js/swiper/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="headerBoxShadow"></div>
+		<div class="mui-content">
+		    <div class="home-content">
+		    		<!--banner-->
+				<div class="swiper-container">
+				   <div class="swiper-wrapper" id="banner">
+				   	
+				   </div>
+				</div>
+				<!--command-->
+				<div class="command">
+					<div class="command-content">
+						<div class="command-title">
+							<div class="command-title-word">良心推荐</div>
+							<div class="command-title-icon" onclick="toNewPage('command')">
+								<div class="word">更多</div>
+								<img src="../../images/set_arrow.png" alt="" />
+							</div>
+						</div>
+						<ul class="command-ul" id="tjLists">
+							
+						</ul>
+					</div>
+				</div>
+				
+				<!--hot-->
+				<div class="command">
+					<div class="command-content">
+						<div class="command-title">
+							<div class="command-title-word">人气应用</div>
+							<div class="command-title-icon" onclick="toNewPage('hot')">
+								<div class="word">更多</div>
+								<img src="../../images/set_arrow.png" alt="" />
+							</div>
+						</div>
+						<ul class="command-ul" id="hotLists">
+							
+						</ul>
+					</div>
+				</div>
+		    </div>
+		</div>
+		<div class="navBoxShadow"></div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script src="../../js/util.js">
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<script>
+			var basicUrl = "https://app.yongketong.cn/api.php?entry=app&c=home&a=sort";
+			$(function(){
+				//获取banner
+				mui.post(basicUrl,{'do':'banner','type':2},function(data){
+					if(data.status == 1){
+						var bannerData = data.data;
+						for (var i = 0 ; i < bannerData.length; i++ ) {
+							$('#banner').append('<div class="swiper-slide">'+
+						      	'<img src="'+bannerData[i].bannericon+'"/>'+
+						      '</div>');
+						}
+						//swiper
+					    var swiper = new Swiper('.swiper-container', {
+					      slidesPerView: 'auto',
+					      centeredSlides: true,
+					      spaceBetween: 20,
+					      loop:true,
+					      pagination: {
+					        el: '.swiper-pagination',
+					        clickable: true,
+					      },
+					    });
+					}else{
+						alert('网络错误');
+					}
+				},'json');
+				
+				//获取推荐应用
+				mui.post(basicUrl,{'do':'recommend','type':1,'status':1},function(data){
+					if(data.status == 1){
+						var tjLists = data.data;
+						for (var i = 0 ; i < tjLists.length; i++ ) {
+							$('#tjLists').append('<li class="command-item" onclick="openStream(\''+tjLists[i].appid+'\')">'+
+								'<div class="command-item-img"><img src="'+tjLists[i].appicon+'"></div>'+
+								'<div class="command-item-word">'+tjLists[i].appname+'</div>'+
+							'</li>');
+						}
+					}else{
+						alert('网络错误');
+					}
+				},'json');
+				
+				//获取人气应用
+				mui.post(basicUrl,{'do':'apphumen','type':0,'status':1},function(data){
+					if(data.status == 1){
+						var hotLists = data.data;
+						for (var i = 0 ; i < hotLists.length; i++ ) {
+							$('#hotLists').append('<li class="command-itemspe">'+
+								'<div class="command-itemspe-content">'+
+									'<div class="command-itemspe-img"><img src="'+hotLists[i].appicon+'"></div>'+
+									'<div class="command-itemspe-info">'+
+										'<div class="info-title">'+hotLists[i].appname+'</div>'+
+										'<div class="info-type">'+hotLists[i].sorttitle+' | '+hotLists[i].apphumen+'人在用</div>'+
+										'<div class="info-desc">'+hotLists[i].appdetail+'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="command-itemspe-btn" onclick="openStream(\''+hotLists[i].appid+'\')">进入</div>'+
+							'</li>');
+						}
+					}else{
+						alert('网络错误');
+					}
+				},'json');
+			})
+			
+			
+			
+		    //跳转新页面
+			function toNewPage(url){
+				var directUrl = '../'+url+'/'+url+'.html';
+				mui.openWindow({
+				    url:directUrl,
+				    id:url,
+				    styles:{
+				      top:0,//新页面顶部位置
+				      bottom:0,//新页面底部位置
+				    },
+				    extras:{
+				      
+				    },
+				    createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				    show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				    },
+				    waiting:{
+				      autoShow:true,//自动显示等待框，默认为true
+				      title:'正在加载...',//等待对话框上显示的提示内容
+				      options:{
+				      }
+				    }
+				})
+			}
+			
+			// 判断程序是否已安装
+			function isInstalled(pn){
+			    var main = plus.android.runtimeMainActivity();
+			    var pm = main.getPackageManager();
+			    var PackageManager = plus.android.importClass(pm);
+			    try{
+			        var pi = pm.getPackageInfo(pn,PackageManager.GET_ACTIVITIES);
+			        if(pi){
+			            return true;
+			        }
+			    }catch(e){
+			    }
+			    return false;
+			}
+			
+			function openStream(id){
+				plus.stream.open({appid:id});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{
+			-webkit-user-select: none;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="brcode.css"/>
+	</head>
+	<body>
+		<div id= "bcid"></div>
+	</body>
+	
+	<script src="../../js/jquery.js"></script>
+	<script src="../../js/util.js"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.plusReady(function(){
+			mui.init();
+			startRecognize();
+			createView();
+		});
+		var view,
+			view1,
+			view2,
+			view3;
+		// 创建原生View控件
+		function createView(){
+			view = new plus.nativeObj.View('scanBack',
+			{
+				bottom:'0px',
+				left:'0px',
+				height:'130px',
+				width:'33.3%'
+			},
+			[
+				{
+					tag:'img',
+					id:'img',
+					src:'../../images/scan_back.png',
+					position:{width:'35px',height:'auto',left:'auto',top:'0px'}
+				},
+				{
+					tag:'font',
+					id:'font',
+					text:'返回',
+					textStyles:{size:'18px',color:'#fff'}
+				}
+			]);
+			view.show();
+			
+			view1 = new plus.nativeObj.View('scanLight',
+			{
+				bottom:'0px',
+				left:'33.3%',
+				height:'130px',
+				width:'33.3%'
+			},
+			[
+				{
+					tag:'img',
+					id:'img',
+					src:'../../images/sacn_light.png',
+					position:{width:'25px',height:'auto',left:'auto',top:'-10px'}
+				},
+				{
+					tag:'font',
+					id:'font',
+					text:'打开手电筒',
+					textStyles:{size:'18px',color:'#fff'}
+				}
+			]);
+			view1.show();
+			
+			view2 = new plus.nativeObj.View('scanThumb',
+			{
+				bottom:'0px',
+				left:'66.6%',
+				height:'130px',
+				width:'33.3%'
+			},
+			[
+				{
+					tag:'img',
+					id:'img',
+					src:'../../images/scan_album.png',
+					position:{width:'40px',height:'auto',left:'auto',top:'0px'}
+				},
+				{
+					tag:'font',
+					id:'font',
+					text:'从相册选取',
+					textStyles:{size:'18px',color:'#fff'}
+				}
+			]);
+			view2.show();
+			
+			view3 = new plus.nativeObj.View('text', {top:'100px',left:'0px',height:'44px',width:'100%'});
+			// 绘制空心圆角矩形
+			view3.drawRect({color:'rgba(0,0,0,0.7)',borderWidth:'none',radius:'12px'},
+				{top:'0px',left:'auto',width:'60%',height:'100%'});
+			view3.drawText('将二维码放入框内',{top:'0px',left:'0px',width:'100%',height:'100%',align:'center'},{color:'#FFFFFF'});
+			view3.show();
+			
+			view.addEventListener('click',backIndex,false);
+			view1.addEventListener('click',setFlash,false);
+		}
+		var scan = null;
+		var isOpen = false;
+		function onmarked( type, result ) {
+			var text = '未知: ';
+			switch(type){
+				case plus.barcode.QR:
+				text = 'QR: ';
+				break;
+				case plus.barcode.EAN13:
+				text = 'EAN13: ';
+				break;
+				case plus.barcode.EAN8:
+				text = 'EAN8: ';
+				break;
+			}
+		}
+		function startRecognize() {
+			var filter;  
+			var styles = {frameColor: "#FFFFFF",scanbarColor: "#FFFFFF",background: ""}  
+			scan = new plus.barcode.Barcode('bcid',filter,styles);
+			scan.onmarked = onmarked; 
+			scan.start();
+		}
+		function setFlash() {
+	        isOpen = !isOpen;
+	        if(isOpen){
+	            scan.setFlash(true);
+	        }else{
+	            scan.setFlash(false);
+	        }
+		}
+		function backIndex(){
+			
+			view.clear();
+			view1.clear();
+			view2.clear();
+			view3.clear();
+			view=view1=view2=view3=null;
+			mui.back();
+		}
+	</script>
+</html>

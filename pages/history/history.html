@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="history.css"/>
+	</head>
+	
+	<body>
+		<div class="mui-content">
+		    <div class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="command">
+						<div class="command-content">
+							<ul class="command-ul">
+								<!--<li class="command-itemspe">
+									<div class="command-itemspe-content">
+										<div class="command-itemspe-img"></div>
+										<div class="command-itemspe-info">
+											<div class="info-title">哔哩哔哩</div>
+											<div class="info-desc">银河系知名弹幕追番神器</div>
+										</div>
+									</div>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: true, //是否显示滚动条
+				deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			});
+		</script>
+	</body>
+</html>

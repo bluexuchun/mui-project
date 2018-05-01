@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="zdy.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-btn"><div class="backbtn-word">返回</div></a>
+		    <h1 class="mui-title">自定义</h1>
+		    <div class="zdy-word" onclick="toZdy()">确定</div>
+		</header>
+		<div class="mui-content">
+			<div class="zdy">
+				<div class="zdy-content">
+					<ul class="zdylist">
+				    		<li class="zdyitem">
+				    			<div class="zdy-title">名称</div>
+				    			<div class="zdy-input">
+				    				<input type="text" name="title" id="title" value="" placeholder="请问我叫什么呀?" />
+				    			</div>
+				    		</li>
+				    		<li class="zdyitem">
+				    			<div class="zdy-title">地址</div>
+				    			<div class="zdy-input">
+				    				<input type="text" name="title" id="title" value="http://" />
+				    			</div>
+				    		</li>
+				    </ul>
+				</div>
+			</div>
+		</div>
+		<script src="../../../js/util.js"></script>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function(){
+					var key = true;
+					if(key){
+						consoleLog('逻辑执行完毕');
+						return true;
+					}else{
+						consoleLog('逻辑执行失败');
+						return false;
+					}
+					
+				}
+			})
+			function toZdy(){
+				mui.back();
+			}
+		</script>
+	</body>
+
+</html>

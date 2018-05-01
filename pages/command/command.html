@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="command.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left back-btn"><div class="backbtn-word">返回</div></a>
+		    <h1 class="mui-title">良心推荐</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+		            <div class="command">
+						<div class="command-content">
+							<ul class="command-ul" id="tjLists">
+								
+							</ul>
+						</div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script type="text/javascript">
+			var basicUrl = "https://app.yongketong.cn/api.php?entry=app&c=home&a=sort";
+			mui.init()
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: true, //是否显示滚动条
+				deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			});
+			//获取推荐应用
+				mui.post(basicUrl,{'do':'recommend','type':1,'status':1},function(data){
+					if(data.status == 1){
+						var tjLists = data.data;
+						for (var i = 0 ; i < tjLists.length; i++ ) {
+							$('#tjLists').append('<li class="command-itemspe">'+
+								'<div class="command-itemspe-content">'+
+									'<div class="command-itemspe-img"><img src="'+tjLists[i].appicon+'"></div>'+
+									'<div class="command-itemspe-info">'+
+										'<div class="info-title">'+tjLists[i].appname+'</div>'+
+										'<div class="info-type">'+tjLists[i].sorttitle+' | '+tjLists[i].apphumen+'人在用</div>'+
+										'<div class="info-desc">'+tjLists[i].appdetail+'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="command-itemspe-btn" onclick="openStream(\''+tjLists[i].appid+'\')">进入</div>'+
+							'</li>');
+						}
+					}else{
+						alert('网络错误');
+					}
+				},'json');
+				
+				function openStream(id){
+					plus.stream.open({appid:id});
+				}
+		</script>
+	</body>
+
+</html>

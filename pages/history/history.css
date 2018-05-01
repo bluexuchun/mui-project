@@ -1,0 +1,87 @@
+body,html{
+	background: #FFFFFF;
+}
+.mui-content{
+	background: #FFFFFF;
+}
+.command .command-content{
+	padding:14px 15px 5px 15px;
+}
+.command-content .command-title{
+	width:100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.command-content .command-title .command-title-word{
+	font-size:18px;
+}
+.command-content .command-title .command-title-icon{
+	
+	color:#8c8c8c;
+	font-size:13px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.command-content .command-title .command-title-icon .word{
+	width:40px;
+}
+.command-content .command-title .command-title-icon img{
+	height:15px;
+}
+.command-content .command-ul{
+	width:100%;
+	padding:0px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin:0 0;
+}
+.command-ul .command-itemspe{
+	width:100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin:10px 0px;
+}
+.command-itemspe .command-itemspe-content{
+	width:80%;
+	height:60px;
+	display: flex;
+	flex-direction: row;
+}
+.command-itemspe-content .command-itemspe-img{
+	width:60px;
+	height:100%;
+	border-radius:6px;
+	background: #F64483;
+	margin-right:15px;
+}
+.command-itemspe-content .command-itemspe-info{
+	height:100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	font-size:13px;
+	color:#8C8C8C;
+}
+.command-itemspe-info .info-title{
+	font-size:16px;
+	color:#000;
+}
+.command-itemspe .command-itemspe-btn{
+	width:20%;
+	height:30px;
+	border-radius: 6px;
+	border:1px solid #597EF7;
+	color:#597EF7;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-size:12px;
+}

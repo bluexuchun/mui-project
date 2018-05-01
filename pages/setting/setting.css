@@ -1,0 +1,80 @@
+body,html{
+	background: #FFFFFF;
+}
+.mui-content{
+	background: #FFFFFF;
+}
+.setting{
+	width:100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.setting-logo{
+	width:100%;
+	margin:40px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.setting-logo img{
+	width:80px;
+	height:80px;
+	margin-bottom:10px;
+}
+.setting-logo .setting-logotitle{
+	width:100%;
+	text-align: center;
+	font-size:14px;
+}
+.setting-list{
+	width:90%;
+	margin:0;
+	padding:0;
+}
+.setting-list .setting-item{
+	list-style: none;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding:20px 0px;
+}
+.setting-list .setting-item .setting-switch{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.setting-list .setting-item .setting-switch .switch-content{
+	width:40px;
+	height:10px;
+	background: #EEEEEE;
+	position: relative;
+	border-radius: 20px;
+}
+.setting-list .setting-item .setting-switch .switch-content .switch-arc{
+	width:20px;
+	height:20px;
+	border-radius: 50%;
+	background: #8C8C8C;
+	position: absolute;
+	left:100%;
+	top:50%;
+	margin-left:-20px;
+	margin-top:-10px;
+}
+.setting-list .setting-item .setting-icon img{
+	width:10px;
+	height: 20px;
+}
+.setting-list .setting-item .setting-group{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.setting-list .setting-item .setting-group .setting-tips{
+	font-size:13px;
+	color:#8C8C8C;
+	margin-right:10px;
+}

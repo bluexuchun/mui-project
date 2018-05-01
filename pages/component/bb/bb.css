@@ -1,0 +1,71 @@
+body,html{
+	background: #FFFFFF;
+}
+.mui-content{
+	background: #FFFFFF;
+}
+.catelist{
+	width:100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.cate-item{
+	width:25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.cate-item .cate-ori{
+	width:100%;
+	height:120px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.cate-item .cate-ori .cate-gimg{
+	width:65px;
+	height:65px;
+	margin:10px 0px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius:8px;
+}
+.cate-item .cate-ori .cate-gimg img{
+	width:100%;
+	height:100%;
+	border-radius: 8px;
+}
+.cate-item .cate-ori .cate-word{
+	width:100%;
+	text-align: center;
+	font-size:13px;
+}
+.cate-item .cate-ori .cate-gimgspe{
+	width:65px;
+	height:65px;
+	margin:10px 0px;
+	background: #F4F4F4;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius:8px;
+	color:#CCCCCC;
+}
+.cate-item .cate-ori .cate-gimgspe img{
+	width:50%;
+	height:50%;
+}
+.cate-item .cate-ori .cate-wordspe{
+	width:100%;
+	text-align: center;
+	font-size:13px;
+	color:#adadad;
+}

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="bb.css"/>
+	</head>
+
+	<body>
+		<div class="mui-content">
+		    <div class="catelist" id="catelists">
+		    		
+		    </div>
+		</div>
+		<script src="../../../js/jquery.js"></script>
+		<script src="../../../js/util.js"></script>
+		<script src="../../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var thememid;
+			mui.plusReady(function(){
+//			     console.log("当前页面URL："+plus.webview.currentWebview().getURL());
+			     thememid = getValue(plus.webview.currentWebview().getURL());
+			     consoleLog(thememid);
+			     if(thememid != ''){
+			     	
+			     	mui.post("https://app.yongketong.cn/api.php?entry=app&c=home&a=appsort",{'do':'appList','sortid':thememid},function(data){
+						consoleLog(data);
+						var cates = data.data;
+						for (var i = 0; i < cates.length; i++) {
+						$('#catelists').append('<div class="cate-item">'+
+								'<div class="cate-ori">'+
+					    				'<div class="cate-gimg"><img src="'+cates[i].appicon+'"></div>'+
+					    				'<div class="cate-word">'+cates[i].appname+'</div>'+
+					    			'</div>'+
+				    			'</div>');
+						}
+//						$('#catelists').append('<div class="cate-item" onclick="toAdd()">'+
+//							'<div class="cate-ori">'+
+//							    	'<div class="cate-gimgspe">'+
+//							    		'<img src="../../../images/add.png"/>'+
+//							    		'</div>'+
+//							    	'<div class="cate-wordspe">添加</div>'+
+//							'</div>'+
+//						'</div>');
+					},'json');
+					
+					
+			     }
+			});
+			function toAdd(){
+				mui.openWindow({
+				    url:'../add/add.html',
+				    id:'add',
+				    styles:{
+				      top:0,//新页面顶部位置
+				      bottom:0,//新页面底部位置
+				    },
+				    extras:{
+				      'sortid':thememid
+				    },
+				    createNew:false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				    show:{
+				      autoShow:true,//页面loaded事件发生后自动显示，默认为true
+				    },
+				    waiting:{
+				      autoShow:true,//自动显示等待框，默认为true
+				      title:'正在加载...',//等待对话框上显示的提示内容
+				      options:{
+				      }
+				    }
+				})
+			}
+		</script>
+	</body>
+
+</html>

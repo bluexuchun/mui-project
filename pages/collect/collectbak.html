@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="collect.css"/>
+	</head>
+
+	<body>
+		<div class="mui-content">
+		    <div class="collect" id="lists">
+		    		
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script src="../../js/util.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var lists = [
+				{
+					'id':1,
+					'title':'测试1'
+				},
+				{
+					'id':2,
+					'title':'测试2'
+				},
+				{
+					'id':3,
+					'title':'测试3'
+				},
+				{
+					'id':4,
+					'title':'测试4'
+				},
+				{
+					'id':5,
+					'title':'测试5'
+				}
+			];
+			//根据数据生成所有div
+			for (var i = 0; i < lists.length; i++) {
+				var row = 0;
+				var col = i;
+				if(i % 4 == 0 && i != 0){
+					row ++;
+				}
+				if(i>3){
+					col = col % (3*row) - 1;
+				}
+				
+				$('#lists').append('<div class="collect-item" data-id='+i+' data-col='+col+' data-row='+row+'>'+
+					'<div class="collect-ori">'+
+			    			'<div class="collect-img" data-status="close">'+
+			    				'<div class="collect-gimg"></div>'+
+			    				'<div class="collect-gbox"></div>'+
+			    			'</div>'+
+			    			'<div class="collect-word">'+lists[i].title+'</div>'+
+			    		'</div>'+
+		    		'</div>');
+		    		
+		    		
+		    		//根据排序去增加样式
+		    		var itemi = $('#lists').children('.collect-item').eq(i);
+		    		//宽度
+		    		var styleX = itemi.attr('data-col') * 25;
+		    		//高度
+		    		var styley = itemi.attr('data-row') * 120;
+		    		itemi.css({
+		    			'position':'absolute',
+		    			'left':styleX+'%',
+		    			'top':styley+'px'
+		    		});
+		    		
+			}
+			
+			consoleLog($('.collect-item').eq(1).length);
+			
+			var orid,
+				oriX,
+				oriY,
+				finallX,
+				finallY;
+				
+			//屏幕的大小
+			var windowWidth = document.body.clientWidth;
+			var windowHeight = document.body.clientHeight;
+			
+			//块的大小
+			var itemWidth = 4;
+			var itemHeight = 120;
+			
+			//图片大小
+			var imgWidth = 65;
+			var imgHeight = 65;
+			
+			mui('.collect').on('dragstart','.collect-item',function(){
+				orid = this.getAttribute('data-id');
+				consoleLog('orid'+orid);
+//				console.log('拖拽开始');
+			});
+			mui('.collect').on('drag','.collect-item',function(e){
+//				console.log('拖拽中');
+				//获取拖拽的位置信息
+				var dragX = e.detail.center.x;
+				var dragY = e.detail.center.y;
+				//获取点击的元素的实际高度和宽度
+				var Width = this.offsetWidth;
+				var Height = this.offsetHeight;
+				
+				finallX = dragX - (Width/2);
+				finallY = dragY - (Height/2);
+					'left':result['col'] * 25 + '%',
+					'top':result['row'] * 120 + 'px'
+				});
+				var targetid = result['col'] + result['row'] * 4;
+				
+				consoleLog('orid='+orid+'&targetid='+targetid);
+								
+				if(targetid > orid){
+					//在落地的目标后面 把我拖动的元素放到后面去
+					$('.collect-item').eq(targetid).after($(this));
+				}else if(targetid < orid){
+					//在落地的目标前面 把我拖动的元素放到前面去
+					$('.collect-item').eq(targetid).before($(this));
+				}
+				
+				for (var j = 0; j < $('.collect-item').length; j++) {
+					$('.collect-item').eq(j).attr('data-id',j);
+					var nowcol = j % 4;
+					var nowrow = Math.floor(j / 4);
+					$('.collect-item').eq(j).attr('data-col',nowcol).attr('data-row',nowrow);
+					$('.collect-item').eq(j).animate({
+						'left':nowcol * 25 + '%',
+						'top':nowrow * 120 + 'px'
+					})
+					
+				}
+			})
+		</script>
+	</body>
+
+</html>

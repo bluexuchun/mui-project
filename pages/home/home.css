@@ -1,0 +1,156 @@
+body{
+	background: #F4F4F4;
+}
+.mui-content{
+	width:100%;
+}
+.mui-content .home-content{
+	width:100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.swiper-container {
+    width: 100%;
+    background: -webkit-linear-gradient(rgba(255,255,255,.4), #fff); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(rgba(255,255,255,.4), #fff); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(rgba(255,255,255,.4), #fff); /* Firefox 3.6 - 15 */
+	background: linear-gradient(rgba(255,255,255,.4), #fff); /* 标准的语法 */
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 70%;
+    margin:15px 0px;
+}
+.swiper-slide img{
+	width:100%;
+	object-fit: cover;
+}
+.command{
+	width:100%;
+	margin-top:15px;
+	background: #FFFFFF;
+}
+.command:last-child{
+	margin-bottom:15px;
+}
+.command .command-content{
+	padding:14px 15px 5px 15px;
+}
+.command-content .command-title{
+	width:100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.command-content .command-title .command-title-word{
+	font-size:18px;
+}
+.command-content .command-title .command-title-icon{
+	
+	color:#8c8c8c;
+	font-size:13px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.command-content .command-title .command-title-icon .word{
+	width:40px;
+}
+.command-content .command-title .command-title-icon img{
+	height:15px;
+}
+.command-content .command-ul{
+	width:100%;
+	padding:0px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.command-ul .command-item{
+	width:25%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding:8px 0px 0px 0px;
+}
+.command-item .command-item-img{
+	width:50px;
+	height:50px;
+	border-radius: 6px;
+	background: #FF6E17;
+	margin:8px 0px;
+}
+.command-item .command-item-img img{
+	width:100%;
+	height:100%;
+	border-radius: 6px;
+}
+.command-item .command-item-word{
+	font-size:13px;
+}
+.command-ul .command-itemspe{
+	width:100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin:10px 0px;
+}
+.command-itemspe .command-itemspe-content{
+	width:80%;
+	height:60px;
+	display: flex;
+	flex-direction: row;
+}
+.command-itemspe-content .command-itemspe-img{
+	width:60px;
+	height:100%;
+	border-radius:6px;
+	background: #F64483;
+	margin-right:15px;
+}
+.command-itemspe-content .command-itemspe-img img{
+	width:100%;
+	height:100%;
+	border-radius: 6px;
+}
+.command-itemspe-content .command-itemspe-info{
+	height:100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-size:13px;
+	color:#8C8C8C;
+}
+.command-itemspe-info .info-title{
+	font-size:16px;
+	color:#000;
+}
+.command-itemspe .command-itemspe-btn{
+	width:20%;
+	height:30px;
+	border-radius: 6px;
+	border:1px solid #597EF7;
+	color:#597EF7;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-size:12px;
+}

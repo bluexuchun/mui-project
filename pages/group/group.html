@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="group.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav indexHeader" id="ori">
+			<div class="search">
+				<div class="search-icon">
+					<img src="../../images/search.png" alt="" />
+				</div>
+				<div class="search-input">
+					<input type="text" name="keyword" value="" placeholder="搜索或输入网址" />
+				</div>
+				<div class="search-icon">
+					<img src="../../images/scan.png" alt="" />
+				</div>
+			</div>
+			<!-- 选择分组 -->
+			<div class="chooseGroup" id="chooseGroup">
+				<div class="chooseGname">选择分组</div>
+				<div class="chooseaction">
+					<div class="caNamezdy" id="zdybtn">
+						自定义
+					</div>
+					<div class="caNamewc" id="wcbtn" onclick="finishAry()">
+						完成
+					</div>
+					<div class="caIcon" onclick="navToggle('close')">
+						<img src="../../images/label_back.png"/>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper">
+		        <div class="mui-scroll">
+				    <div class="group">
+				    		<div class="group-content">
+				    			<ul class="group-ul" id="grouplists">
+				    				<li class="group-item">
+				    					<div class="group-img">
+				    						<img src="../../images/label_tuijian.png" alt="" />
+				    					</div>
+				    					<div class="group-word word-ls">推荐</div>
+				    				</li>
+				    				<li class="group-item">
+				    					<div class="group-img">
+				    						<img src="../../images/label_bibei.png" alt="" />
+				    					</div>
+				    					<div class="group-word word-ls">必备</div>
+				    				</li>
+				    			</ul>
+				    		</div>
+				    		<div class="group-content-none group-zdy">
+				    			<div class="group-none-word">未添加分组</div>
+				    		</div>
+				    		<div class="group-content group-zdy" style="padding:5px 15px 14px 15px;">
+				    			<ul class="group-ul" id="nonelists">
+				    				
+				    			</ul>
+				    		</div>
+				    </div>
+				 </div>
+			</div>
+		</div>
+		<script src="../../js/jquery.js"></script>
+		<script src="../../js/util.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				scrollX: false, //是否横向滚动
+				startX: 0, //初始化时滚动至x
+				startY: 0, //初始化时滚动至y
+				indicators: true, //是否显示滚动条
+				deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				bounce: true //是否启用回弹
+			});
+			var items = [];
+			//分类的获取
+			mui.post("https://app.yongketong.cn/api.php?entry=app&c=home&a=appsort",{'do':'appSort'},function(data){
+				var cates = data.data;
+				for (var i = 0; i < cates.length; i++) {
+					consoleLog(cates);
+					var item = {
+						'id':cates[i].id,
+						'title':cates[i].sorttitle,
+						'icon':cates[i].sorticon,
+						'isAdd':cates[i].sortshow
+					}
+					items[i] = item;
+				}
+				makeArr();
+			},'json');
+			
+			function makeArr(){
+				for (var i = 0; i < items.length; i++) {
+					if(items[i]['isAdd'] == 1){
+						if(items[i]['spe'] != ''){
+							$('#grouplists').append('<li class="group-item" data-id="'+i+'" onclick="arrayMan(\'delete\',this)">'+
+							'<div class="group-del"><img src="../../images/label_del.png"></div>'+
+				    			'<div class="group-img">'+
+				    				'<img style="'+items[i]['spe']+'" src="'+items[i]['icon']+'" alt="" />'+
+				    			'</div>'+
+				    			'<div class="group-word">'+items[i]['title']+'</div>'+
+				    		'</li>');
+						}else{
+							$('#grouplists').append('<li class="group-item" data-id="'+i+'" onclick="arrayMan(\'delete\',this)">'+
+							'<div class="group-del"><img src="../../images/label_del.png"></div>'+
+				    			'<div class="group-img">'+
+				    				'<img src="'+items[i]['icon']+'" alt="" />'+
+				    			'</div>'+
+				    			'<div class="group-word">'+items[i]['title']+'</div>'+
+				    		'</li>');
+						}
+					}else{
+						$('#nonelists').append('<li class="group-item" data-id="'+i+'" onclick="arrayMan(\'add\',this)">'+
+				    			'<div class="group-img">'+
+				    				'<img src="'+items[i]['icon']+'" alt="" />'+
+				    			'</div>'+
+				    			'<div class="group-word">'+items[i]['title']+'</div>'+
+				    		'</li>');
+					}
+				}
+			}
+			
+			function navToggle(action){
+				if(action == 'close'){
+					plus.webview.open(
+						'../../index.html',
+						'../../index.html',
+						{
+							top:'0px',
+							bottom:'0px'
+						}
+					);
+				}
+			}
+			$('#zdybtn').on('click',function(){
+				$(this).css({
+					'display':'none'
+				});
+				$('#wcbtn').css({
+					'display':'flex'
+				});
+				$('.group-zdy').css({
+					'display':'block'
+				});
+				$('.group-item .group-del').css({
+					'display':'block'
+				});
+			})
+			function arrayMan(type,obj){
+				var id = $(obj).attr('data-id');
+				if(type == 'delete'){
+					items[id]['isAdd'] = 0;
+					var changeItem = items[id];
+					$(obj).remove();
+					$('#nonelists').append('<li class="group-item" data-id="'+id+'" onclick="arrayMan(\'add\',this)">'+
+			    			'<div class="group-img">'+
+			    				'<img src="'+items[id]['icon']+'" alt="" />'+
+			    			'</div>'+
+			    			'<div class="group-word">'+items[id]['title']+'</div>'+
+			    		'</li>');
+				}else{
+					items[id]['isAdd'] = 1;
+					var changeItem = items[id];
+					$(obj).remove();
+					if(items[id]['spe'] != ''){
+						$('#grouplists').append('<li class="group-item" data-id="'+id+'" onclick="arrayMan(\'delete\',this)">'+
+							'<div class="group-del"><img src="../../images/label_del.png"></div>'+
+					    		'<div class="group-img">'+
+					    			'<img style="'+items[id]['spe']+'" src="'+items[id]['icon']+'" alt="" />'+
+					    		'</div>'+
+					    		'<div class="group-word">'+items[id]['title']+'</div>'+
+					    	'</li>');
+					}else{
+						$('#grouplists').append('<li class="group-item" data-id="'+id+'" onclick="arrayMan(\'delete\',this)">'+
+							'<div class="group-del"><img src="../../images/label_del.png"></div>'+
+				    			'<div class="group-img">'+
+				    				'<img src="'+items[id]['icon']+'" alt="" />'+
+					    		'</div>'+
+					    		'<div class="group-word">'+items[id]['title']+'</div>'+
+					    	'</li>');
+					}
+					$('#grouplists .group-item[data-id='+id+']').find('.group-del').css({
+						'display':'block'
+					});
+				}
+			}
+			function finishAry(){
+				$('#grouplists').empty();
+				$('#nonelists').empty();
+				$('#grouplists').append('<li class="group-item">'+
+					    	'<div class="group-img">'+
+					    		'<img src="../../images/label_tuijian.png" alt="" />'+
+					    	'</div>'+
+					    	'<div class="group-word word-ls">推荐</div>'+
+				  	'</li>'+
+				    	'<li class="group-item">'+
+				    		'<div class="group-img">'+
+				    			'<img src="../../images/label_bibei.png" alt="" />'+
+				    		'</div>'+
+				    		'<div class="group-word word-ls">必备</div>'+
+				    	'</li>');
+				makeArr();
+				$('#wcbtn').css({
+					'display':'none'
+				});
+				$('#zdybtn').css({
+					'display':'flex'
+				});
+				$('.group-zdy').css({
+					'display':'none'
+				});
+				$('.group-item .group-del').css({
+					'display':'none'
+				});
+				
+			}
+		</script>
+	</body>
+</html>

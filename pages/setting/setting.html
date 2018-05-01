@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		
+		<script src="../../js/mui.min.js"></script>
+    		<link href="../../css/mui.min.css" rel="stylesheet"/>
+    		<link rel="stylesheet" type="text/css" href="setting.css"/>
+	</head>
+	<body>
+		<div class="mui-content">
+		  	<div class="setting">
+		  		<div class="setting-logo">
+		  			<img src="../../images/logo.png"/>
+		  			<div class="setting-logotitle">用客通</div>
+		  		</div>
+		  		<ul class="setting-list">
+		  			<!--<li class="setting-item">
+		  				<div class="setting-word">第一次启动创建桌面图标</div>
+		  				<div class="setting-icon setting-switch">
+		  					<input type="hidden" name="createStatus" id="createStatus" data-status="close" value="0" />
+		  					<div class="switch-content" onclick="switchToggle(event)">
+		  						<div class="switch-arc" onclick="switchToggle(event)" id="switchbtn"></div>
+		  					</div>
+		  				</div>
+		  			</li>-->
+		  			<li class="setting-item">
+		  				<div class="setting-word">分享给好友</div>
+		  				<div class="setting-icon">
+		  					<img src="../../images/set_arrow.png"/>
+		  				</div>
+		  			</li>
+		  			<li class="setting-item" id="cacheBtn">
+		  				<div class="setting-word">清理缓存</div>
+		  				<div class="setting-icon setting-group">
+		  					<div class="setting-tips" id="cacheSize"></div>
+		  					<img src="../../images/set_arrow.png"/>
+		  				</div>
+		  			</li>
+		  			<li class="setting-item">
+		  				<div class="setting-word">检查版本</div>
+		  				<div class="setting-icon setting-group">
+		  					<div class="setting-tips">V 1.0.0</div>
+		  					<img src="../../images/set_arrow.png"/>
+		  				</div>
+		  			</li>
+		  			<li class="setting-item">
+		  				<div class="setting-word">问题反馈</div>
+		  				<div class="setting-icon">
+		  					<img src="../../images/set_arrow.png"/>
+		  				</div>
+		  			</li>
+		  			<li class="setting-item">
+		  				<div class="setting-word">隐私政策</div>
+		  				<div class="setting-icon">
+		  					<img src="../../images/set_arrow.png"/>
+		  				</div>
+		  			</li>
+		  		</ul>
+		  	</div>
+		</div>
+		
+		
+		
+		<script src="../../js/util.js"></script>
+		<script src="../../js/jquery.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			$(function(){
+				calculateCache();
+			})
+			
+			$('#cacheBtn').on('click',function(){
+				mui.confirm('你确定要清楚缓存吗？',['取消','确认'],function(res){
+					consoleLog(res.index);
+					plus.nativeUI.showWaiting('清楚缓存中...',{padding:'35px'});
+					if(res.index == 0){
+						clearCache();
+					}
+				})
+			})
+			
+			
+			function clearCache(){
+				plus.cache.clear( function () {
+					calculateCache();
+				});
+				setTimeout(function(){
+					plus.nativeUI.closeWaiting();
+				},1000);
+			}
+			//计算缓存
+			function calculateCache(){
+				plus.cache.calculate( function ( size ) {
+					var cacheSize = (size / 1024 / 1024).toFixed(2);
+					$('#cacheSize').empty().html(cacheSize + 'MB');
+				});
+			}
+			function switchToggle(e){
+				e.stopPropagation();
+				var type = $('#createStatus').attr('data-status');
+				if(type == 'close'){
+					$('#switchbtn').animate({
+						'left':'-100%',
+						'margin-left':'40px'
+					},'fast');
+					$('#switchbtn').css({
+						'background':'#597ef7'
+					})
+					$('#createStatus').attr('data-status','open').attr('value',1);
+				}else{
+					$('#switchbtn').animate({
+						'left':'100%',
+						'margin-left':'-20px'
+					},'fast');
+					$('#switchbtn').css({
+						'background':'#8c8c8c'
+					})
+					$('#createStatus').attr('data-status','close').attr('value',0);
+				}
+			}
+		</script>
+			
+	</body>
+</html>
